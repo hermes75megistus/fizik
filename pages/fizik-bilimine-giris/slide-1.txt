@@ -1,0 +1,13 @@
+<div class="slide-content">
+    <h1>🔬 Fizik Bilimine Giriş</h1>
+    <p>2026 TYT Fizik Müfredatı</p>
+    <div class="slide-highlight">
+        <strong>Ders Hedefi:</strong> Fizik biliminin temellerini öğrenmek ve fiziksel büyüklükleri anlayabilmek
+    </div>
+    <div class="slide-highlight" style="background: rgba(231, 76, 60, 0.8); margin-top: 20px;">
+        <strong>🎨 Yeni Özellik:</strong> Bu derste <strong>Ctrl+Space</strong> ile çizim modunu açıp 
+        fizik kavramlarını görselleştirebilirsiniz!<br>
+        <strong>🗑️ Temizle:</strong> Ctrl+C<br>
+        <small style="opacity: 0.8;">Çıkış: Tekrar Ctrl+Space</small>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="slide-content">
+    <h2>🔢 Vektör ve Skaler Büyüklükler</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 30px 0;">
+        <div>
+            <h3>📊 Skaler Büyüklükler</h3>
+            <p>Sadece büyüklüğü olan nicelikler</p>
+            <ul>
+                <li>Kütle</li>
+                <li>Sıcaklık</li>
+                <li>Zaman</li>
+                <li>Enerji</li>
+            </ul>
+        </div>
+        <div>
+            <h3>🎯 Vektörel Büyüklükler</h3>
+            <p>Büyüklük + Yön olan nicelikler</p>
+            <ul>
+                <li>Hız</li>
+                <li>İvme</li>
+                <li>Kuvvet</li>
+                <li>Momentum</li>
+            </ul>
+        </div>
+    </div>
+</div>

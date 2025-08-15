@@ -1,0 +1,10 @@
+<div class="slide-content">
+    <h2>🌿 Fiziğin Dalları</h2>
+    <ul>
+        <li><strong>⚙️ Mekanik:</strong> Cisimlerin hareket ve dengelerini inceler</li>
+        <li><strong>🌡️ Termodinamik:</strong> Isı ve sıcaklık olaylarını inceler</li>
+        <li><strong>⚡ Elektromanyetizma:</strong> Elektrik ve manyetik olayları inceler</li>
+        <li><strong>💡 Optik:</strong> Işık olaylarını inceler</li>
+        <li><strong>🔬 Modern Fizik:</strong> Atom altı parçacıkları ve kuantum olaylarını inceler</li>
+    </ul>
+</div>

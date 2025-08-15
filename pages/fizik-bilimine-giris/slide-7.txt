@@ -1,0 +1,15 @@
+<div class="slide-content">
+    <h2>📏 Ölçme ve Belirsizlik</h2>
+    <p>Her ölçümde bir belirsizlik vardır!</p>
+    <div class="slide-formula">
+        <strong>Ölçüm Sonucu Gösterimi:</strong><br><br>
+        Ölçüm = Değer ± Belirsizlik<br><br>
+        Örnek: l = 25,3 ± 0,1 cm
+    </div>
+    <div class="slide-highlight">
+        <strong>⚠️ Anlamlı Rakam Kuralları:</strong><br>
+        • Sıfır olmayan rakamlar anlamlı<br>
+        • Aralarındaki sıfırlar anlamlı<br>
+        • Ondalık sonrası sıfırlar anlamlı
+    </div>
+</div>

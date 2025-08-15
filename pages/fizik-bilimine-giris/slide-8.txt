@@ -1,0 +1,18 @@
+<div class="slide-content">
+    <h2>📈 Grafik Analizi & 🎨 Çizim Araçları</h2>
+    <p>Fiziksel büyüklükler arasındaki ilişkiler grafiklerle gösterilir</p>
+    <div class="slide-formula">
+        <strong>Grafik Türleri:</strong><br><br>
+        📍 Konum-Zaman: Hareketin konumunu gösterir<br><br>
+        🏃 Hız-Zaman: Hızın zamana göre değişimi<br><br>
+        🚀 İvme-Zaman: İvme değişimlerini gösterir
+    </div>
+    <div class="slide-highlight">
+        <strong>🎨 Çizim Araçları (Ctrl+Space):</strong><br>
+        ✏️ Kalem • 📏 Çizgi • ➡️ Ok • ↔️ Çift Ok<br>
+        ⬜ Dikdörtgen • ⭕ Daire • 📝 Metin<br>
+        Fizik diyagramlarınızı çizin!<br>
+        <strong>🗑️ Temizle:</strong> Ctrl+C<br>
+        <small style="opacity: 0.8;">📖 Çıkış: Tekrar Ctrl+Space</small>
+    </div>
+</div>

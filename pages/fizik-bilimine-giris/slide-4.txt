@@ -1,0 +1,9 @@
+<div class="slide-content">
+    <h2>🔍 Fiziksel Büyüklükler</h2>
+    <p>Fiziksel büyüklükler, ölçülebilen ve sayısal değerle ifade edilebilen niceliklerdir.</p>
+    <div class="slide-highlight">
+        <strong>📊 Temel Büyüklükler (SI):</strong><br>
+        Uzunluk (m) • Kütle (kg) • Zaman (s) • Akım (A)<br>
+        Sıcaklık (K) • Madde Miktarı (mol) • Işık Şiddeti (cd)
+    </div>
+</div>

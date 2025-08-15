@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fizik Bilimine Giriş - 2026 TYT</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/drawing-program.css">
+    <style>
+        /* Slide Container */
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        /* Individual Slide */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-100px);
+        }
+
+        /* Slide Content */
+        .slide-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide h2 {
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .slide h3 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .slide p {
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .slide ul {
+            font-size: 1.3em;
+            line-height: 1.8;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .slide li {
+            margin: 15px 0;
+            padding-left: 10px;
+        }
+
+        /* Slide-specific backgrounds */
+        .slide-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .slide-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .slide-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .slide-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .slide-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .slide-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        .slide-7 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #333; }
+        .slide-8 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); color: #333; }
+
+        /* Highlight Box for Slides */
+        .slide-highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Formula Box for Slides */
+        .slide-formula {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            border: 2px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.8);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        /* Loading indicator */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        /* Sidebar Integration */
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 25px 0;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            overflow-y: auto;
+            z-index: 999;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.3em;
+            font-weight: 600;
+            padding: 0 20px;
+            color: #ecf0f1;
+        }
+
+        .menu-item {
+            padding: 14px 22px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-5px);
+            border-left-color: #e74c3c;
+        }
+
+        .menu-item.active {
+            background: rgba(255,255,255,0.2);
+            border-left-color: #f39c12;
+            font-weight: 600;
+        }
+
+        .menu-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+            
+            .slide h1 { font-size: 2.5em; }
+            .slide h2 { font-size: 2em; }
+            .slide h3 { font-size: 1.7em; }
+            .slide p { font-size: 1.2em; }
+            
+            .sidebar {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Slide Container -->
+    <div class="slide-container" id="slideContainer">
+        <!-- Slides will be loaded dynamically -->
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>2026 TYT Fizik Konuları</h2>
+        <div class="menu-item" onclick="window.location.href='../index.html'">🏠 Ana Sayfa</div>
+        <div class="menu-item active">📚 Fizik Bilimine Giriş</div>
+        <div class="menu-item" onclick="window.location.href='madde-ve-ozellikleri.html'">🧪 Madde ve Özellikleri</div>
+        <div class="menu-item disabled">💧 Sıvıların Kaldırma Kuvveti</div>
+        <div class="menu-item disabled">🌡️ Basınç</div>
+        <div class="menu-item disabled">🔥 Isı, Sıcaklık ve Genleşme</div>
+        <div class="menu-item disabled">🏃 Hareket ve Kuvvet</div>
+        <div class="menu-item disabled">⚡ Dinamik</div>
+        <div class="menu-item disabled">⚙️ İş, Güç ve Enerji</div>
+        <div class="menu-item disabled">🔌 Elektrik</div>
+        <div class="menu-item disabled">🧲 Manyetizma</div>
+        <div class="menu-item disabled">🌊 Dalgalar</div>
+        <div class="menu-item disabled">👁️ Optik</div>
+    </div>
+
+    <script>
+        class SlideLoader {
+            constructor(topicName, totalSlides) {
+                this.topicName = topicName;
+                this.totalSlides = totalSlides;
+                this.slides = [];
+                this.loadedSlides = 0;
+            }
+
+            async loadSlides() {
+                const container = document.getElementById('slideContainer');
+                container.innerHTML = '<div class="loading">Slide\'lar yükleniyor...</div>';
+
+                for (let i = 1; i <= this.totalSlides; i++) {
+                    try {
+                        const response = await fetch(`${this.topicName}/slide-${i}.txt`);
+                        let content = '';
+                        
+                        if (response.ok) {
+                            content = await response.text();
+                        } else {
+                            // Fallback content if file doesn't exist
+                            content = this.getFallbackContent(i);
+                        }
+
+                        const slideElement = this.createSlideElement(i, content);
+                        this.slides.push(slideElement);
+                        this.loadedSlides++;
+                        
+                    } catch (error) {
+                        console.warn(`Slide ${i} yüklenemedi, fallback içerik kullanılıyor:`, error);
+                        const fallbackContent = this.getFallbackContent(i);
+                        const slideElement = this.createSlideElement(i, fallbackContent);
+                        this.slides.push(slideElement);
+                        this.loadedSlides++;
+                    }
+                }
+
+                this.renderSlides();
+            }
+
+            createSlideElement(slideNumber, content) {
+                const slide = document.createElement('div');
+                slide.className = `slide slide-${slideNumber}`;
+                slide.setAttribute('data-slide', slideNumber);
+                
+                if (slideNumber === 1) {
+                    slide.classList.add('active');
+                }
+
+                slide.innerHTML = content;
+                return slide;
+            }
+
+            renderSlides() {
+                const container = document.getElementById('slideContainer');
+                container.innerHTML = '';
+                
+                this.slides.forEach(slide => {
+                    container.appendChild(slide);
+                });
+            }
+
+            getFallbackContent(slideNumber) {
+                const fallbackContents = {
+                    1: `<div class="slide-content">
+                        <h1>🔬 Fizik Bilimine Giriş</h1>
+                        <p>2026 TYT Fizik Müfredatı</p>
+                        <div class="slide-highlight">
+                            <strong>Ders Hedefi:</strong> Fizik biliminin temellerini öğrenmek ve fiziksel büyüklükleri anlayabilmek
+                        </div>
+                        <div class="slide-highlight" style="background: rgba(231, 76, 60, 0.8); margin-top: 20px;">
+                            <strong>🎨 Yeni Özellik:</strong> Bu derste <strong>Ctrl+Space</strong> ile çizim modunu açıp 
+                            fizik kavramlarını görselleştirebilirsiniz!<br>
+                            <strong>🗑️ Temizle:</strong> Ctrl+C<br>
+                            <small style="opacity: 0.8;">Çıkış: Tekrar Ctrl+Space</small>
+                        </div>
+                    </div>`,
+                    
+                    2: `<div class="slide-content">
+                        <h2>🌌 Fizik Nedir?</h2>
+                        <p>Fizik, doğada gerçekleşen olayları gözlemleyerek, bu olayların nedenlerini araştıran ve aralarındaki ilişkileri matematiksel ifadelerle açıklayan bilim dalıdır.</p>
+                        <div class="slide-highlight">
+                            <strong>🎯 Anahtar Nokta:</strong><br>
+                            Fizik, evrendeki tüm madde ve enerji etkileşimlerini inceler.
+                        </div>
+                    </div>`,
+                    
+                    3: `<div class="slide-content">
+                        <h2>🌿 Fiziğin Dalları</h2>
+                        <ul>
+                            <li><strong>⚙️ Mekanik:</strong> Cisimlerin hareket ve dengelerini inceler</li>
+                            <li><strong>🌡️ Termodinamik:</strong> Isı ve sıcaklık olaylarını inceler</li>
+                            <li><strong>⚡ Elektromanyetizma:</strong> Elektrik ve manyetik olayları inceler</li>
+                            <li><strong>💡 Optik:</strong> Işık olaylarını inceler</li>
+                            <li><strong>🔬 Modern Fizik:</strong> Atom altı parçacıkları ve kuantum olaylarını inceler</li>
+                        </ul>
+                    </div>`,
+                    
+                    4: `<div class="slide-content">
+                        <h2>🔍 Fiziksel Büyüklükler</h2>
+                        <p>Fiziksel büyüklükler, ölçülebilen ve sayısal değerle ifade edilebilen niceliklerdir.</p>
+                        <div class="slide-highlight">
+                            <strong>📊 Temel Büyüklükler (SI):</strong><br>
+                            Uzunluk (m) • Kütle (kg) • Zaman (s) • Akım (A)<br>
+                            Sıcaklık (K) • Madde Miktarı (mol) • Işık Şiddeti (cd)
+                        </div>
+                    </div>`,
+                    
+                    5: `<div class="slide-content">
+                        <h2>🔧 Türetilmiş Büyüklükler</h2>
+                        <div class="slide-formula">
+                            <strong>Örnekler:</strong><br><br>
+                            🏃 Hız = Uzunluk / Zaman = m/s<br><br>
+                            🚀 İvme = Hız / Zaman = m/s²<br><br>
+                            💪 Kuvvet = Kütle × İvme = kg⋅m/s² = N<br><br>
+                            ⚡ Enerji = Kuvvet × Uzunluk = N⋅m = J
+                        </div>
+                    </div>`,
+                    
+                    6: `<div class="slide-content">
+                        <h2>🔢 Vektör ve Skaler Büyüklükler</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 30px 0;">
+                            <div>
+                                <h3>📊 Skaler Büyüklükler</h3>
+                                <p>Sadece büyüklüğü olan nicelikler</p>
+                                <ul>
+                                    <li>Kütle</li>
+                                    <li>Sıcaklık</li>
+                                    <li>Zaman</li>
+                                    <li>Enerji</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3>🎯 Vektörel Büyüklükler</h3>
+                                <p>Büyüklük + Yön olan nicelikler</p>
+                                <ul>
+                                    <li>Hız</li>
+                                    <li>İvme</li>
+                                    <li>Kuvvet</li>
+                                    <li>Momentum</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>`,
+                    
+                    7: `<div class="slide-content">
+                        <h2>📏 Ölçme ve Belirsizlik</h2>
+                        <p>Her ölçümde bir belirsizlik vardır!</p>
+                        <div class="slide-formula">
+                            <strong>Ölçüm Sonucu Gösterimi:</strong><br><br>
+                            Ölçüm = Değer ± Belirsizlik<br><br>
+                            Örnek: l = 25,3 ± 0,1 cm
+                        </div>
+                        <div class="slide-highlight">
+                            <strong>⚠️ Anlamlı Rakam Kuralları:</strong><br>
+                            • Sıfır olmayan rakamlar anlamlı<br>
+                            • Aralarındaki sıfırlar anlamlı<br>
+                            • Ondalık sonrası sıfırlar anlamlı
+                        </div>
+                    </div>`,
+                    
+                    8: `<div class="slide-content">
+                        <h2>📈 Grafik Analizi & 🎨 Çizim Araçları</h2>
+                        <p>Fiziksel büyüklükler arasındaki ilişkiler grafiklerle gösterilir</p>
+                        <div class="slide-formula">
+                            <strong>Grafik Türleri:</strong><br><br>
+                            📍 Konum-Zaman: Hareketin konumunu gösterir<br><br>
+                            🏃 Hız-Zaman: Hızın zamana göre değişimi<br><br>
+                            🚀 İvme-Zaman: İvme değişimlerini gösterir
+                        </div>
+                        <div class="slide-highlight">
+                            <strong>🎨 Çizim Araçları (Ctrl+Space):</strong><br>
+                            ✏️ Kalem • 📏 Çizgi • ➡️ Ok • ↔️ Çift Ok<br>
+                            ⬜ Dikdörtgen • ⭕ Daire • 📝 Metin<br>
+                            Fizik diyagramlarınızı çizin!<br>
+                            <strong>🗑️ Temizle:</strong> Ctrl+C<br>
+                            <small style="opacity: 0.8;">📖 Çıkış: Tekrar Ctrl+Space</small>
+                        </div>
+                    </div>`
+                };
+                
+                return fallbackContents[slideNumber] || `<div class="slide-content"><h2>Slide ${slideNumber}</h2><p>İçerik yükleniyor...</p></div>`;
+            }
+        }
+
+        class SlideManager {
+            constructor() {
+                this.currentSlide = 1;
+                this.totalSlides = 8; // Fizik Bilimine Giriş için 8 slide
+                this.slides = [];
+                this.init();
+            }
+
+            async init() {
+                // Slide'ları yükle
+                const loader = new SlideLoader('fizik-bilimine-giris', this.totalSlides);
+                await loader.loadSlides();
+                
+                // Yüklenen slide'ları al
+                this.slides = document.querySelectorAll('.slide');
+                
+                this.updateUI();
+                this.setupKeyboardControls();
+                this.updateProgressBar();
+            }
+
+            setupKeyboardControls() {
+                document.addEventListener('keydown', (e) => {
+                    // Sol ok = Önceki slide
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.previousSlide();
+                    }
+                    // Sağ ok = Sonraki slide
+                    else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        this.nextSlide();
+                    }
+                    // Ctrl + Home = İlk slide
+                    else if (e.ctrlKey && e.key === 'Home') {
+                        e.preventDefault();
+                        this.goToSlide(1);
+                    }
+                    // Ctrl + End = Son slide
+                    else if (e.ctrlKey && e.key === 'End') {
+                        e.preventDefault();
+                        this.goToSlide(this.totalSlides);
+                    }
+                    // Ctrl + M = Sidebar toggle
+                    else if (e.ctrlKey && e.key === 'm') {
+                        e.preventDefault();
+                        this.toggleSidebar();
+                    }
+                });
+            }
+
+            toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('show');
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.totalSlides) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            previousSlide() {
+                if (this.currentSlide > 1) {
+                    this.goToSlide(this.currentSlide - 1);
+                }
+            }
+
+            goToSlide(slideNumber) {
+                if (slideNumber < 1 || slideNumber > this.totalSlides) return;
+
+                // Tüm slide'ları gizle
+                this.slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'prev');
+                    if (index + 1 < slideNumber) {
+                        slide.classList.add('prev');
+                    }
+                });
+
+                // Aktif slide'ı göster
+                const targetSlide = document.querySelector(`[data-slide="${slideNumber}"]`);
+                if (targetSlide) {
+                    targetSlide.classList.add('active');
+                }
+
+                this.currentSlide = slideNumber;
+                this.updateUI();
+                this.updateProgressBar();
+            }
+
+            updateUI() {
+                // UI güncelleme işlemleri burada yapılabilir
+            }
+
+            updateProgressBar() {
+                const progress = (this.currentSlide / this.totalSlides) * 100;
+                document.getElementById('progressBar').style.width = `${progress}%`;
+            }
+        }
+
+        // Global fonksiyonlar
+        let slideManager;
+
+        function nextSlide() {
+            slideManager.nextSlide();
+        }
+
+        function previousSlide() {
+            slideManager.previousSlide();
+        }
+
+        function goToSlide(slideNumber) {
+            slideManager.goToSlide(slideNumber);
+        }
+
+        function toggleSidebar() {
+            slideManager.toggleSidebar();
+        }
+
+        // Sayfa yüklendiğinde başlat
+        document.addEventListener('DOMContentLoaded', async () => {
+            slideManager = new SlideManager();
+            
+            // Sidebar otomatik kapatma
+            document.addEventListener('click', (e) => {
+                const sidebar = document.getElementById('sidebar');
+                
+                if (!sidebar.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        });
+
+        // Swipe desteği (mobil)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Sola kaydırma - sonraki slide
+                    nextSlide();
+                } else {
+                    // Sağa kaydırma - önceki slide
+                    previousSlide();
+                }
+            }
+        }
+    </script>
+    
+    <!-- Çizim Programı -->
+    <script src="../js/drawing-program.js"></script>
+</body>
+</html>

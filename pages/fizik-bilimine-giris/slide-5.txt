@@ -1,0 +1,10 @@
+<div class="slide-content">
+    <h2>🔧 Türetilmiş Büyüklükler</h2>
+    <div class="slide-formula">
+        <strong>Örnekler:</strong><br><br>
+        🏃 Hız = Uzunluk / Zaman = m/s<br><br>
+        🚀 İvme = Hız / Zaman = m/s²<br><br>
+        💪 Kuvvet = Kütle × İvme = kg⋅m/s² = N<br><br>
+        ⚡ Enerji = Kuvvet × Uzunluk = N⋅m = J
+    </div>
+</div>

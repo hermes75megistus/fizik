@@ -1,0 +1,8 @@
+<div class="slide-content">
+    <h2>🌌 Fizik Nedir?</h2>
+    <p>Fizik, doğada gerçekleşen olayları gözlemleyerek, bu olayların nedenlerini araştıran ve aralarındaki ilişkileri matematiksel ifadelerle açıklayan bilim dalıdır.</p>
+    <div class="slide-highlight">
+        <strong>🎯 Anahtar Nokta:</strong><br>
+        Fizik, evrendeki tüm madde ve enerji etkileşimlerini inceler.
+    </div>
+</div>
